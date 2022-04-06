@@ -1,0 +1,70 @@
+
+// create server
+const fs = require('fs');
+const path = require ('path');
+const express = require('express');
+
+const app =  express();
+
+app.set('views', path.join(__dirname,'views')) //views in parameter is folder name
+app.set('view engine', 'ejs'); //for ejs template engine
+
+app.use(express.static('public')); //for executed css file and js file in the public folder
+app.use(express.urlencoded({ extended: false}));
+// create path route for index.html in server side code
+app.get('/', function(req, res) {
+    res.render('index'); //for ejs template engine
+
+    // const htmlFilePath = path.join(__dirname, 'views', 'index.html');
+    // res.sendFile(htmlFilePath);
+});
+// create path route for restaurant.html in server side code
+app.get('/restaurants', function(req, res){
+    const filePath = path.join(__dirname, 'data','restaurants.json');
+
+    const fileData =  fs.readFileSync(filePath);
+    const storedRestaurants = JSON.parse(fileData);
+
+    res.render('restaurants', { numberOfRestaurants: storedRestaurants.length, restaurants: storedRestaurants,
+     }); //for ejs template engine
+
+    // const htmlFilePath = path.join(__dirname, 'views', 'restaurants.html');
+    // res.sendFile(htmlFilePath);
+});
+
+// create path route for about.html in server side code
+app.get('/about', function(req, res){
+    res.render('about'); //for ejs template engine
+    // const htmlFilePath = path.join(__dirname, 'views', 'about.html');
+    // res.sendFile(htmlFilePath);
+});
+
+// create path route for confirm.html in server side code
+app.get('/confirm', function(req, res){
+    res.render('confirm'); //for ejs template engine
+    // const htmlFilePath = path.join(__dirname, 'views', 'confirm.html');
+    // res.sendFile(htmlFilePath);
+});
+
+// create path route for recommend.html in server side code
+app.get('/recommend', function(req, res){
+    res.render('recommend'); //for ejs template engine
+    // const htmlFilePath = path.join(__dirname, 'views', 'recommend.html');
+    // res.sendFile(htmlFilePath);
+});
+
+app.post('/recommend', function(req, res){
+    const restaurant = req.body;
+    const filePath = path.join(__dirname, 'data','restaurants.json');
+
+    const fileData =  fs.readFileSync(filePath);
+    const storedRestaurants = JSON.parse(fileData);
+
+    storedRestaurants.push(restaurant);
+
+    fs.writeFileSync(filePath, JSON.stringify(storedRestaurants));
+
+    res.redirect('/confirm');
+});
+
+app.listen(3000);

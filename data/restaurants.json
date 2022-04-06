@@ -1,0 +1,23 @@
+[
+  {
+    "name": "Test",
+    "address": "Test street 5, test",
+    "cuisine": "Italian",
+    "website": "https://mytest.com",
+    "description": "It's Awesome"
+  },
+  {
+    "name": "Test 2",
+    "address": "Test 2, Test Street",
+    "cuisine": "Melayu",
+    "website": "https://mytest2.com",
+    "description": "Its' Delicious"
+  },
+  {
+    "name": "Kedai Pak Usop",
+    "address": "Bangunan Sri Wilayah Putrajaya",
+    "cuisine": "Makanan Berlauk",
+    "website": "https://pakusopp.com",
+    "description": "Very Recommend"
+  }
+]
