@@ -1,5 +1,6 @@
 [
   {
+    "id": "r1",
     "name": "Test",
     "address": "Test street 5, test",
     "cuisine": "Italian",
@@ -7,6 +8,7 @@
     "description": "It's Awesome"
   },
   {
+    "id": "r2",
     "name": "Test 2",
     "address": "Test 2, Test Street",
     "cuisine": "Melayu",
@@ -14,10 +16,19 @@
     "description": "Its' Delicious"
   },
   {
+    "id": "r3",
     "name": "Kedai Pak Usop",
     "address": "Bangunan Sri Wilayah Putrajaya",
     "cuisine": "Makanan Berlauk",
     "website": "https://pakusopp.com",
     "description": "Very Recommend"
+  },
+  {
+    "name": "Restoran Soraya",
+    "address": "Jalan Testing, P11 Test",
+    "cuisine": "Thai",
+    "website": "https://google.com",
+    "description": "Sedap Jugak!!!",
+    "id": "e3d75c63-80ba-4191-801d-be8678bd062e"
   }
 ]

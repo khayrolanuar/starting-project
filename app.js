@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require ('path');
 const express = require('express');
+const uuid = require('uuid');
 
 const app =  express();
 
@@ -32,6 +33,14 @@ app.get('/restaurants', function(req, res){
     // res.sendFile(htmlFilePath);
 });
 
+app.get('/restaurants/:id', function (req, res){ // /restaurants/r1
+   const restaurantId = req.params.id;
+   res.render('restaurant-detail', { rid: restaurantId });
+
+   
+});
+
+
 // create path route for about.html in server side code
 app.get('/about', function(req, res){
     res.render('about'); //for ejs template engine
@@ -55,6 +64,7 @@ app.get('/recommend', function(req, res){
 
 app.post('/recommend', function(req, res){
     const restaurant = req.body;
+    restaurant.id = uuid.v4();
     const filePath = path.join(__dirname, 'data','restaurants.json');
 
     const fileData =  fs.readFileSync(filePath);
@@ -66,5 +76,8 @@ app.post('/recommend', function(req, res){
 
     res.redirect('/confirm');
 });
+
+
+
 
 app.listen(3000);
