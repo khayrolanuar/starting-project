@@ -87,6 +87,8 @@ app.post('/recommend', function(req, res){
 });
 
 
-
+app.use(function (req, res) {
+    res.render('404'); // handle Non-Existing route. it will show error page
+});
 
 app.listen(3000);
