@@ -91,4 +91,8 @@ app.use(function (req, res) {
     res.render('404'); // handle Non-Existing route. it will show error page
 });
 
+app.use(function(error, req, res, next) { //handling server-side errors 500 status code
+    res.render('500');
+}) 
+
 app.listen(3000);
