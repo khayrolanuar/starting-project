@@ -5,6 +5,8 @@ const path = require ('path');
 const express = require('express');
 const uuid = require('uuid');
 
+const resData = require('./util/restaurant-data') //patch in node,js in require statement
+
 const app =  express();
 
 app.set('views', path.join(__dirname,'views')) //views in parameter is folder name
@@ -21,10 +23,11 @@ app.get('/', function(req, res) {
 });
 // create path route for restaurant.html in server side code
 app.get('/restaurants', function(req, res){
-    const filePath = path.join(__dirname, 'data','restaurants.json');
+    const storedRestaurants = resData.getStoreRestaurants();
+    // const filePath = path.join(__dirname, 'data','restaurants.json');
 
-    const fileData =  fs.readFileSync(filePath);
-    const storedRestaurants = JSON.parse(fileData);
+    // const fileData =  fs.readFileSync(filePath);
+    // const storedRestaurants = JSON.parse(fileData);
 
     res.render('restaurants', { numberOfRestaurants: storedRestaurants.length, restaurants: storedRestaurants,
      }); //for ejs template engine
@@ -35,10 +38,11 @@ app.get('/restaurants', function(req, res){
 
 app.get('/restaurants/:id', function (req, res){ // /restaurants/r1
      const restaurantId = req.params.id;
-     const filePath = path.join(__dirname, 'data','restaurants.json');
+     const storedRestaurants = resData.getStoreRestaurants();
+    //  const filePath = path.join(__dirname, 'data','restaurants.json');
 
-    const fileData =  fs.readFileSync(filePath);
-    const storedRestaurants = JSON.parse(fileData);
+    // const fileData =  fs.readFileSync(filePath);
+    // const storedRestaurants = JSON.parse(fileData);
 
     for (const restaurant of storedRestaurants) {
         if (restaurant.id === restaurantId){
@@ -74,7 +78,7 @@ app.get('/recommend', function(req, res){
 app.post('/recommend', function(req, res){
     const restaurant = req.body;
     restaurant.id = uuid.v4();
-    const restaurants = getStoreRestaurants ();
+    const restaurants = resData.getStoreRestaurants();
 
     restaurants.push(restaurant);
 
