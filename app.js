@@ -46,7 +46,7 @@ app.get('/restaurants/:id', function (req, res){ // /restaurants/r1
         }
     }
 
-   res.render('404');
+   res.status(404).render('404');
 });
 
 
@@ -74,25 +74,22 @@ app.get('/recommend', function(req, res){
 app.post('/recommend', function(req, res){
     const restaurant = req.body;
     restaurant.id = uuid.v4();
-    const filePath = path.join(__dirname, 'data','restaurants.json');
+    const restaurants = getStoreRestaurants ();
 
-    const fileData =  fs.readFileSync(filePath);
-    const storedRestaurants = JSON.parse(fileData);
+    restaurants.push(restaurant);
 
-    storedRestaurants.push(restaurant);
-
-    fs.writeFileSync(filePath, JSON.stringify(storedRestaurants));
+    storeRestaurants(restaurants);
 
     res.redirect('/confirm');
 });
 
 
 app.use(function (req, res) {
-    res.render('404'); // handle Non-Existing route. it will show error page
+    res.status(404).render('404'); // handle Non-Existing route. it will show error page
 });
 
 app.use(function(error, req, res, next) { //handling server-side errors 500 status code
-    res.render('500');
+    res.status(500).render('500');
 }) 
 
 app.listen(3000);
